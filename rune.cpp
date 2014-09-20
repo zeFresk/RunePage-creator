@@ -14,3 +14,8 @@ RuneType Rune::getType() const
 {
     return type_;
 }
+
+Effet Rune::getEffet() const
+{
+    return effet_;
+}

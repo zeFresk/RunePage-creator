@@ -14,6 +14,7 @@ public:
     Rune(std::string nom,Effet effet,RuneType type);
     std::string getName() const;
     RuneType getType() const;
+    Effet getEffet() const;
 private:
     std::string name_;
     Effet effet_;

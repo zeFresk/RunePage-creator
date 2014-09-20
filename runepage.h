@@ -2,7 +2,10 @@
 #define RUNEPAGE_H
 
 #include <array>
+#include <vector>
 #include "rune.h"
+
+void addEffet(std::vector<Effet> &vect, Effet const& effet);
 
 class RunePage
 {
@@ -12,6 +15,7 @@ public:
     RunePage(RunePage& r)=delete;
     void ajouterRune(Rune const& rune);
     void clear();
+    std::vector<Effet> getAllEffect() const;
 private:
     std::array<Rune*,9> Marques_;
     std::array<Rune*,9> Sceaux_;

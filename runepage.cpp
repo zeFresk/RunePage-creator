@@ -56,3 +56,35 @@ void RunePage::clear() //RAZ des pointeurs
     for (auto& a: Glyphes_) {a = nullptr;}
     for (auto& a: Quints_) {a = nullptr;}
 }
+
+std::vector<Effet> RunePage::getAllEffect() const
+{
+    std::vector<Effet> ret;
+
+    //on ajoute tous les effets rune par rune
+    for (auto &a : Marques_) {addEffet(ret,a.getEffet());}
+    for (auto &a : Sceaux_) {addEffet(ret,a.getEffet());}
+    for (auto &a : Glyphes_) {addEffet(ret,a.getEffet());}
+    for (auto &a : Quints_) {addEffet(ret,a.getEffet());}
+
+    return ret;
+}
+
+void addEffet(std::vector<Effet> &vect, Effet const& effet)
+{
+    int pos = -1;
+    for (int i{0}; i < vect.size(); i++) //on cherche si l'effet est déjà présent dans le vector
+    {
+        if (vect[i].first == effet.first) //existe déjà
+            pos = i; //l'effet existe déjà donc on donne la pos
+    }
+
+    if (pos != -1) //l'effet existe
+    {
+        vect[pos].second += effet.second; //on cumule les effets
+    }
+    else //l'effet n'existe pas
+    {
+        vect.push_back(effet); //on l'ajoute
+    }
+}

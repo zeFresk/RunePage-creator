@@ -1,7 +1,7 @@
 #include "fenetre.h"
 #include "ui_fenetre.h"
 
-Fenetre::Fenetre(QWidget *parent) : QMainWindow(parent), Sui(new Ui::Fenetre)
+Fenetre::Fenetre(QWidget *parent) : QMainWindow(parent), ui(new Ui::Fenetre)
 {
     ui->setupUi(this);
 
@@ -37,6 +37,7 @@ void Fenetre::updateStats()
     }
     else
     {
-        std::vector<
+        QString newLabel{""};
+
     }
 }
