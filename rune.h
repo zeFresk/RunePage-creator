@@ -4,7 +4,7 @@
 #include <string>
 #include <utility>
 
-typename std::pair<string,int> Effet;
+typedef std::pair<std::string,int> Effet;
 
 enum class RuneType {Marque, Sceau, Glyphe, Quint};
 
