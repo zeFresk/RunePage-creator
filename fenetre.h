@@ -2,6 +2,9 @@
 #define FENETRE_H
 
 #include <QMainWindow>
+#include <vector>
+#include "rune.h"
+#include "runepage.h"
 
 namespace Ui {
 class Fenetre;
@@ -22,6 +25,9 @@ public slots:
 
 private:
     Ui::Fenetre *ui;
+    void updateStats();
+    std::vector<Rune> index;
+    RunePage page;
 };
 
 #endif // FENETRE_H

@@ -22,3 +22,7 @@ HEADERS  += fenetre.h \
     runepage.h
 
 FORMS    += fenetre.ui
+
+QMAKE_CXXFLAGS = -std=c++11 \
+    -Wall \
+    -Wextra \

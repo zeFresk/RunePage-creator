@@ -278,7 +278,7 @@
         <widget class="QListWidget" name="SceauxList"/>
        </item>
        <item row="1" column="2">
-        <widget class="QListWidget" name="GlyohesList"/>
+        <widget class="QListWidget" name="GlyphesList"/>
        </item>
        <item row="1" column="3">
         <widget class="QListWidget" name="QuintList"/>
