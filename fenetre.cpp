@@ -10,7 +10,13 @@ Fenetre::Fenetre(QWidget *parent) : QMainWindow(parent), ui(new Ui::Fenetre)
     connect(ui->actionOuvrir,SIGNAL(triggered()),this,SLOT(ouvrirFichier()));
     connect(ui->actionSauvegarder,SIGNAL(triggered()),this,SLOT(sauvegarderFichier()));
     connect(ui->actionQuitter,SIGNAL(triggered()),qApp,SLOT(quit()));
-    //connect(ui->)
+
+    index = loadIndexFromFile("runes.index"); //on charge les runes
+    std::vector<QListWidgetItem> indexQList = indexToWidget(index); //on les transforme en widgets affichables
+    for (auto &a : indexQList)
+    {
+        ui->DRunelist->addItem(a); //on ajoute les runes à la liste
+    }
 }
 
 Fenetre::~Fenetre()
