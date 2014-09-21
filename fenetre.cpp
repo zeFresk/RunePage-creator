@@ -16,7 +16,21 @@ Fenetre::Fenetre(QWidget *parent) : QMainWindow(parent), ui(new Ui::Fenetre)
     index = loadIndexFromFile("runes.index"); //on charge les runes
     for (auto &a : index)
     {
-        ui->DRunelist->addItem(a.getQPres()); //temporaire
+        QHBoxLayout* layout = new QHBoxLayout;
+        QLabel* lbl = new QLabel(a.getQPres());
+        QLabel* lbl2 = new QLabel("Je suis un autre label");
+        layout->addWidget(lbl);
+        layout->addWidget(lbl2);
+
+        QListWidgetItem* item = new QListWidgetItem();
+
+        ui->DRunelist->addItem(item); //temporaire
+
+        QWidget* wi = new QWidget;
+        wi->setLayout(layout);
+        item->setSizeHint(wi->sizeHint());
+
+        ui->DRunelist->setItemWidget(item,wi);
     }
 
     connect(ui->DRunelist,SIGNAL(clicked(QModelIndex)),this,SLOT(ajouteBonneList(QModelIndex))); //on connecte pour que quand on clique on ajoute la rune.
