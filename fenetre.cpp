@@ -1,6 +1,7 @@
 #include "fenetre.h"
 #include "ui_fenetre.h"
 #include "fileManagement.h"
+#include <QMessageBox>
 
 Fenetre::Fenetre(QWidget *parent) : QMainWindow(parent), ui(new Ui::Fenetre)
 {
@@ -13,11 +14,42 @@ Fenetre::Fenetre(QWidget *parent) : QMainWindow(parent), ui(new Ui::Fenetre)
     connect(ui->actionQuitter,SIGNAL(triggered()),qApp,SLOT(quit()));
 
     index = loadIndexFromFile("runes.index"); //on charge les runes
+    for (auto &a : index)
+    {
+        ui->DRunelist->addItem(a.getQPres()); //temporaire
+    }
+
+    connect(ui->DRunelist,SIGNAL(clicked(QModelIndex)),this,SLOT(ajouteBonneList(QModelIndex))); //on connecte pour que quand on clique on ajoute la rune.
 }
 
 Fenetre::~Fenetre()
 {
     delete ui;
+}
+
+void Fenetre::ajouteBonneList(QModelIndex ind)
+{
+    bool success = page.ajouterRune(index[ind.row()]); //On ajoute le bon index à la runepage. théoriquement c'est bon.
+    QMessageBox::information(this,"Debug",QString::number(ind.row()) + "<br/>" + QString::number(success));
+    if (success) //on a jouté la rune
+    {
+        if (index[ind.row()].getType() == RuneType::Marque) //on a cliqué sur une marque
+        {
+            ui->MarquesList->addItem(ui->DRunelist->item(ind.row())); //on ajoute l'item à la bonne liste
+        }
+        else if (index[ind.row()].getType() == RuneType::Sceau) //on a cliqué sur un sceau
+        {
+            ui->SceauxList->addItem(ui->DRunelist->item(ind.row()));
+        }
+        else if (index[ind.row()].getType() == RuneType::Glyphe) //on a cliqué sur un glyphe
+        {
+            ui->GlyphesList->addItem(ui->DRunelist->item(ind.row()));
+        }
+        else if (index[ind.row()].getType() == RuneType::Quint) //on a cliqué sur une quintessence
+        {
+            ui->QuintList->addItem(ui->DRunelist->item(ind.row()));
+        }
+    }
 }
 
 void Fenetre::nouveauFichier()
@@ -27,6 +59,9 @@ void Fenetre::nouveauFichier()
     ui->SceauxList->clear();
     ui->GlyphesList->clear();
     ui->QuintList->clear();
+
+    //on vide la page
+    page.clear();
 
     updateStats();
 }

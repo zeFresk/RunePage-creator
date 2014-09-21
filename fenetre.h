@@ -2,6 +2,7 @@
 #define FENETRE_H
 
 #include <QMainWindow>
+#include <QModelIndex>
 #include <vector>
 #include "rune.h"
 #include "runepage.h"
@@ -22,6 +23,8 @@ public slots:
     void nouveauFichier();
     void ouvrirFichier();
     void sauvegarderFichier();
+
+    void ajouteBonneList(QModelIndex ind);
 
 private:
     Ui::Fenetre *ui;

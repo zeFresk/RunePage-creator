@@ -67,3 +67,8 @@ Effet Rune::getEffet() const
 {
     return effet_;
 }
+
+QString Rune::getQPres() const
+{
+    return QString(QString::number(static_cast<int>(type_)) + " " + name_.c_str() + " " + effet_.first.c_str() + " " + QString::number(effet_.second));
+}

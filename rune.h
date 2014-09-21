@@ -3,6 +3,7 @@
 
 #include <string>
 #include <utility>
+#include <QString>
 
 typedef std::pair<std::string,int> Effet;
 
@@ -16,6 +17,7 @@ public:
     std::string getName() const;
     RuneType getType() const;
     Effet getEffet() const;
+    QString getQPres() const;
 private:
     std::string name_;
     Effet effet_;

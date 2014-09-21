@@ -13,7 +13,7 @@ public:
     RunePage();
     RunePage& operator=(RunePage const& r)=delete;
     RunePage(RunePage& r)=delete;
-    void ajouterRune(Rune &rune);
+    bool ajouterRune(Rune &rune);
     void clear();
     std::vector<Effet> getAllEffect() const;
 private:
