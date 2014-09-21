@@ -30,26 +30,26 @@ Fenetre::~Fenetre()
 void Fenetre::ajouteBonneList(QModelIndex ind)
 {
     bool success = page.ajouterRune(index[ind.row()]); //On ajoute le bon index à la runepage. théoriquement c'est bon.
-    QMessageBox::information(this,"Debug",QString::number(ind.row()) + "<br/>" + QString::number(success));
     if (success) //on a jouté la rune
     {
         if (index[ind.row()].getType() == RuneType::Marque) //on a cliqué sur une marque
         {
-            ui->MarquesList->addItem(ui->DRunelist->item(ind.row())); //on ajoute l'item à la bonne liste
+            ui->MarquesList->addItem(ui->DRunelist->currentItem()->clone()); //on ajoute l'item à la bonne liste
         }
         else if (index[ind.row()].getType() == RuneType::Sceau) //on a cliqué sur un sceau
         {
-            ui->SceauxList->addItem(ui->DRunelist->item(ind.row()));
+            ui->SceauxList->addItem(ui->DRunelist->currentItem()->clone());
         }
         else if (index[ind.row()].getType() == RuneType::Glyphe) //on a cliqué sur un glyphe
         {
-            ui->GlyphesList->addItem(ui->DRunelist->item(ind.row()));
+            ui->GlyphesList->addItem(ui->DRunelist->currentItem()->clone());
         }
         else if (index[ind.row()].getType() == RuneType::Quint) //on a cliqué sur une quintessence
         {
-            ui->QuintList->addItem(ui->DRunelist->item(ind.row()));
+            ui->QuintList->addItem(ui->DRunelist->currentItem()->clone());
         }
     }
+    updateStats();
 }
 
 void Fenetre::nouveauFichier()
@@ -91,7 +91,7 @@ void Fenetre::updateStats()
         {
             tmp = (a.second > 0) ? "<span style=\" color:#d00000;\">+ " : "<span style=\" color:#0267b5;\">- "; //on prend le signe du bonus
             //+/- XX STAT (avec de la coloration et STAT en italique)
-            newLabel += "<p align=\"center\">" + tmp + QString{a.second} + " </span><span style=\" font-style:italic; color:#000000;\">" + std::string(a.first).c_str() + "</span></p>";
+            newLabel += "<p align=\"center\">" + tmp + QString::number(a.second) + " </span><span style=\" font-style:italic; color:#000000;\">" + a.first.c_str() + "</span></p>";
         }
         newLabel += "</body></html>"; //on finit la mise en page
         ui->StatLabel->setText(newLabel);

@@ -74,10 +74,26 @@ std::vector<Effet> RunePage::getAllEffect() const
     std::vector<Effet> ret;
 
     //on ajoute tous les effets rune par rune
-    for (auto &a : Marques_) {addEffet(ret,a->getEffet());}
-    for (auto &a : Sceaux_) {addEffet(ret,a->getEffet());}
-    for (auto &a : Glyphes_) {addEffet(ret,a->getEffet());}
-    for (auto &a : Quints_) {addEffet(ret,a->getEffet());}
+    for (auto &a : Marques_)
+    {
+        if (a != nullptr)
+            addEffet(ret,a->getEffet());
+    }
+    for (auto &a : Sceaux_)
+    {
+        if (a != nullptr)
+            addEffet(ret,a->getEffet());
+    }
+    for (auto &a : Glyphes_)
+    {
+        if (a != nullptr)
+            addEffet(ret,a->getEffet());
+    }
+    for (auto &a : Quints_)
+    {
+        if (a != nullptr)
+            addEffet(ret,a->getEffet());
+    }
 
     return ret;
 }
