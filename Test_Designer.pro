@@ -15,11 +15,13 @@ TEMPLATE = app
 SOURCES += main.cpp\
         fenetre.cpp \
     rune.cpp \
-    runepage.cpp
+    runepage.cpp \
+    fileManagement.cpp
 
 HEADERS  += fenetre.h \
     rune.h \
-    runepage.h
+    runepage.h \
+    fileManagement.h
 
 FORMS    += fenetre.ui
 

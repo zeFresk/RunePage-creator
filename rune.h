@@ -11,7 +11,8 @@ enum class RuneType {Marque, Sceau, Glyphe, Quint};
 class Rune
 {
 public:
-    Rune(std::string nom,Effet effet,RuneType type);
+    Rune(const std::string &nom, const Effet &effet, const RuneType &type);
+    Rune(std::string str); //pour pouvoir load à partir d'une chaîne de type "NOM TYPE EFFET_NOM EFFET_VALEUR"
     std::string getName() const;
     RuneType getType() const;
     Effet getEffet() const;

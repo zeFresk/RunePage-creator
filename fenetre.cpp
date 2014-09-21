@@ -1,5 +1,6 @@
 #include "fenetre.h"
 #include "ui_fenetre.h"
+#include "fileManagement.h"
 
 Fenetre::Fenetre(QWidget *parent) : QMainWindow(parent), ui(new Ui::Fenetre)
 {
@@ -12,11 +13,6 @@ Fenetre::Fenetre(QWidget *parent) : QMainWindow(parent), ui(new Ui::Fenetre)
     connect(ui->actionQuitter,SIGNAL(triggered()),qApp,SLOT(quit()));
 
     index = loadIndexFromFile("runes.index"); //on charge les runes
-    std::vector<QListWidgetItem> indexQList = indexToWidget(index); //on les transforme en widgets affichables
-    for (auto &a : indexQList)
-    {
-        ui->DRunelist->addItem(a); //on ajoute les runes à la liste
-    }
 }
 
 Fenetre::~Fenetre()
