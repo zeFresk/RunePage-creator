@@ -89,9 +89,9 @@ void Fenetre::updateStats()
         std::vector<Effet> allEffect = page.getAllEffect(); //on récupère tous les effets de la page !
         for (auto &a : allEffect) //on parcoure tous les effets
         {
-            tmp = (a.second > 0) ? "<span style=\" color:#d00000; font-size:20pt; font-weight:400\">+ " : "<span style=\" color:#0267b5;\">- "; //on prend le signe du bonus
+            tmp = (a.second > 0) ? "<span style=\" color:#d00000; font-size:20pt; font-weight:400\">+ " : "<span style=\" color:#0267b5; font-size:20pt; font-weight:400\">- "; //on prend le signe du bonus
             //+/- XX STAT (avec de la coloration et STAT en italique)
-            newLabel += "<p align=\"center\">" + tmp + QString::number(a.second) + " </span><span style=\" font-style:italic; color:#000000; font-size:20pt; font-weight:600\">" + a.first.c_str() + "</span></p>";
+            newLabel += "<p align=\"center\">" + tmp + QString::number(abs(a.second)) + " </span><span style=\" font-style:italic; color:#000000; font-size:20pt; font-weight:600\">" + a.first.c_str() + "</span></p>";
         }
         newLabel += "</body></html>"; //on finit la mise en page
         ui->StatLabel->setText(newLabel);
