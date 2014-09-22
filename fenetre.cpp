@@ -86,11 +86,11 @@ void Fenetre::addToList(QListWidget* list, Rune const& rune)
 {
     QHBoxLayout* layout = new QHBoxLayout; //layout de l'élément
 
-    QLabel* nom = new QLabel(rune.getColoredName()); //on met le nom coloré de la rune
+    QLabel* nom = new QLabel(rune.getColoredName(7)); //on met le nom coloré de la rune
     nom->setWordWrap(true);
-    nom->setMaximumWidth(150);
+    nom->setMaximumWidth(125);
 
-    QLabel* intEffet = new QLabel(rune.getColoredEffect());
+    QLabel* intEffet = new QLabel(rune.getColoredEffect(8));
 
     layout->addWidget(nom);
     layout->addWidget(intEffet);
