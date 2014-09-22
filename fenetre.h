@@ -28,6 +28,11 @@ public slots:
 
     void ajouteBonneList(QModelIndex ind);
 
+    void supprimerMarque(QModelIndex ind);
+    void supprimerSceau(QModelIndex ind);
+    void supprimerGlyphe(QModelIndex ind);
+    void supprimerQuint(QModelIndex ind);
+
 private:
     Ui::Fenetre *ui;
     std::vector<QPixmap*> vectorPixRune;

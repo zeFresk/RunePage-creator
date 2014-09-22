@@ -50,11 +50,45 @@ Fenetre::Fenetre(QWidget *parent) : QMainWindow(parent), ui(new Ui::Fenetre)
     }
 
     connect(ui->DRunelist,SIGNAL(clicked(QModelIndex)),this,SLOT(ajouteBonneList(QModelIndex))); //on connecte pour que quand on clique on ajoute la rune.
+
+    //on connecte pour qu'on pouisse supprimer les runes des petites listes
+    connect(ui->MarquesList,SIGNAL(clicked(QModelIndex)),this,SLOT(supprimerMarque(QModelIndex)));
+    connect(ui->SceauxList,SIGNAL(clicked(QModelIndex)),this,SLOT(supprimerSceau(QModelIndex)));
+    connect(ui->GlyphesList,SIGNAL(clicked(QModelIndex)),this,SLOT(supprimerGlyphe(QModelIndex)));
+    connect(ui->QuintList,SIGNAL(clicked(QModelIndex)),this,SLOT(supprimerQuint(QModelIndex)));
 }
 
 Fenetre::~Fenetre()
 {
     delete ui;
+}
+
+void Fenetre::supprimerMarque(QModelIndex ind)
+{
+    page.remove(RuneType::Marque, ind.row()); //on supprime la bonne rune
+    ui->MarquesList->removeItemWidget(ui->MarquesList->currentItem()); //on delete l'item
+    updateStats();
+}
+
+void Fenetre::supprimerSceau(QModelIndex ind)
+{
+    page.remove(RuneType::Sceau, ind.row()); //on supprime la bonne rune
+    ui->SceauxList->removeItemWidget(ui->SceauxList->currentItem()); //on delete l'item
+    updateStats();
+}
+
+void Fenetre::supprimerGlyphe(QModelIndex ind)
+{
+    page.remove(RuneType::Glyphe, ind.row()); //on supprime la bonne rune
+    ui->GlyphesList->removeItemWidget(ui->GlyphesList->currentItem()); //on delete l'item
+    updateStats();
+}
+
+void Fenetre::supprimerQuint(QModelIndex ind)
+{
+    page.remove(RuneType::Quint, ind.row()); //on supprime la bonne rune
+    ui->QuintList->removeItemWidget(ui->QuintList->currentItem()); //on delete l'item
+    updateStats();
 }
 
 void Fenetre::ajouteBonneList(QModelIndex ind)

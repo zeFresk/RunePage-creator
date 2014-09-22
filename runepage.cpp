@@ -1,4 +1,38 @@
 #include "runepage.h"
+#include <stdexcept>
+
+// Bon là il faut vraiment que j'explique parce que c'est pas simple !
+// Cette fonction permet de supprimer les trous de nullptr dans le tableau de rune après suppression d'une rune
+// Prenons le tableau suivant : plein plein nullptr plein
+// après un passage de for il deviendra : plein plein plein nullptr
+//
+// La boucle do while est là dans le cas (que je n'appelle théoriquement jamais) où on a trou de plus d'une case !
+// Exemple : plein nullptr nullptr plein
+// Après un for : plein nullptr plein nullptr
+//  > Vu qu'on a eu un changement on refait un tour !
+// Deuxième for : plein plein nullptr nullptr
+// Et voilà c'est tout beau !
+template <std::size_t a>
+void ordonne(std::array<Rune*,a> & arr)
+{
+    bool changement;
+    do
+    {
+        changement = false;
+        for (unsigned i{0};i<arr.size();i++) // on parcourt
+        {
+            if (arr[i] == nullptr && i < (arr.size()-1)) //le pointeur à la case est vide et on n'est pas à la dernière case
+            {
+                if (arr[i+1] != nullptr) //d'ou la condition précédente sinon overflow !!!
+                {
+                    arr[i] = arr[i+1];
+                    arr[i+1] = nullptr;
+                    changement = true;
+                }
+            }
+        }
+    } while (changement == true); //tant qu'on a eu un changement
+}
 
 RunePage::RunePage()
 {
@@ -96,6 +130,35 @@ std::vector<Effet> RunePage::getAllEffect() const
     }
 
     return ret;
+}
+
+void RunePage::remove(RuneType const& type, int pos)
+{
+    if (pos < 0) throw std::runtime_error("Unable to remove the rune ! (pos < 0)"); //Qt qui peut renvoyer un index négatif...
+    if (type == RuneType::Marque && pos < 9)
+    {
+        Marques_[pos] = nullptr;
+        ordonne(Marques_); //pour ne pas avoir de trous
+    }
+    else if (type == RuneType::Sceau && pos < 9)
+    {
+        Sceaux_[pos] = nullptr;
+        ordonne(Sceaux_);
+    }
+    else if (type == RuneType::Glyphe && pos < 9)
+    {
+        Glyphes_[pos] = nullptr;
+        ordonne(Glyphes_);
+    }
+    else if (type == RuneType::Sceau && pos < 3)
+    {
+        Quints_[pos] = nullptr;
+        ordonne(Quints_);
+    }
+    else // l'index est trop grand, en théorie ça n'arrivera jamais !
+    {
+        throw std::runtime_error("Unable to remove the rune ! (pos > maxPos)");
+    }
 }
 
 void addEffet(std::vector<Effet> &vect, Effet const& effet)

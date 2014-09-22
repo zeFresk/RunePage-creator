@@ -16,6 +16,7 @@ public:
     bool ajouterRune(Rune &rune);
     void clear();
     std::vector<Effet> getAllEffect() const;
+    void remove(RuneType const& type, int pos);
 private:
     std::array<Rune*,9> Marques_;
     std::array<Rune*,9> Sceaux_;
