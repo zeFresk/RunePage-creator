@@ -67,6 +67,7 @@ void Fenetre::supprimerMarque(QModelIndex ind)
 {
     page.remove(RuneType::Marque, ind.row()); //on supprime la bonne rune
     ui->MarquesList->removeItemWidget(ui->MarquesList->currentItem()); //on delete l'item
+    ui->MarquesList->takeItem(ind.row()); //on enlève les espaces
     updateStats();
 }
 
@@ -74,6 +75,7 @@ void Fenetre::supprimerSceau(QModelIndex ind)
 {
     page.remove(RuneType::Sceau, ind.row()); //on supprime la bonne rune
     ui->SceauxList->removeItemWidget(ui->SceauxList->currentItem()); //on delete l'item
+    ui->SceauxList->takeItem(ind.row()); //on enlève les espaces
     updateStats();
 }
 
@@ -81,6 +83,7 @@ void Fenetre::supprimerGlyphe(QModelIndex ind)
 {
     page.remove(RuneType::Glyphe, ind.row()); //on supprime la bonne rune
     ui->GlyphesList->removeItemWidget(ui->GlyphesList->currentItem()); //on delete l'item
+    ui->GlyphesList->takeItem(ind.row()); //on enlève les espaces
     updateStats();
 }
 
@@ -88,6 +91,7 @@ void Fenetre::supprimerQuint(QModelIndex ind)
 {
     page.remove(RuneType::Quint, ind.row()); //on supprime la bonne rune
     ui->QuintList->removeItemWidget(ui->QuintList->currentItem()); //on delete l'item
+    ui->QuintList->takeItem(ind.row()); //on enlève les espaces
     updateStats();
 }
 
