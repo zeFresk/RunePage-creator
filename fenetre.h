@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QModelIndex>
+#include <QPixmap>
 #include <vector>
 #include "rune.h"
 #include "runepage.h"
@@ -28,7 +29,10 @@ public slots:
 
 private:
     Ui::Fenetre *ui;
+    std::vector<QPixmap*> vectorPixRune;
+
     void updateStats();
+
     std::vector<Rune> index;
     RunePage page;
 };

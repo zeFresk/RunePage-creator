@@ -18,6 +18,8 @@ public:
     RuneType getType() const;
     Effet getEffet() const;
     QString getQPres() const;
+    QString getColoredName() const;
+    QString getColoredEffect() const;
 private:
     std::string name_;
     Effet effet_;

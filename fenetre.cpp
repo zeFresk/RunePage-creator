@@ -14,13 +14,34 @@ Fenetre::Fenetre(QWidget *parent) : QMainWindow(parent), ui(new Ui::Fenetre)
     connect(ui->actionQuitter,SIGNAL(triggered()),qApp,SLOT(quit()));
 
     index = loadIndexFromFile("runes.index"); //on charge les runes
+
+    //on charge les icones des runes;
+    vectorPixRune.push_back(new QPixmap("marque_ico.png"));
+    vectorPixRune.push_back(new QPixmap("sceau_ico.png"));
+    vectorPixRune.push_back(new QPixmap("glyphe_ico.png"));
+    vectorPixRune.push_back(new QPixmap("quint_ico.png"));
+
     for (auto &a : index)
     {
-        QHBoxLayout* layout = new QHBoxLayout;
-        QLabel* lbl = new QLabel(a.getQPres());
-        QLabel* lbl2 = new QLabel("Je suis un autre label");
-        layout->addWidget(lbl);
-        layout->addWidget(lbl2);
+        QHBoxLayout* layout = new QHBoxLayout; //layout de l'élément
+
+        QLabel* ico = new QLabel; //icone de rune
+        ico->setPixmap(vectorPixRune[static_cast<unsigned>(a.getType())]->scaledToHeight(50,Qt::SmoothTransformation)); //on resize
+
+        QLabel* nom = new QLabel(a.getColoredName()); //on met le nom coloré de la rune
+
+        QFrame* frame = new QFrame; //frame du milieu
+        frame->setFrameShape(QFrame::VLine);
+        frame->setFrameShadow(QFrame::Plain);
+        frame->setLineWidth(1);
+        frame->setMidLineWidth(2);
+
+        QLabel* intEffet = new QLabel(a.getColoredEffect());
+
+        layout->addWidget(ico);
+        layout->addWidget(nom);
+        layout->addWidget(frame);
+        layout->addWidget(intEffet);
 
         QListWidgetItem* item = new QListWidgetItem();
 

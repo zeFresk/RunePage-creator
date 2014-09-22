@@ -72,3 +72,32 @@ QString Rune::getQPres() const
 {
     return QString(QString::number(static_cast<int>(type_)) + " " + name_.c_str() + " " + effet_.first.c_str() + " " + QString::number(effet_.second));
 }
+
+QString Rune::getColoredName() const
+{
+    QString color;
+    if (type_ == RuneType::Marque)
+    {
+        color = "#c24000";
+    }
+    else if (type_ == RuneType::Sceau)
+    {
+        color = "#f1c900";
+    }
+    else if (type_ == RuneType::Glyphe)
+    {
+        color = "#0183da";
+    }
+    else if (type_ == RuneType::Quint)
+    {
+        color = "#ffac05";
+    }
+    return QString("<html><head/><body><p><span style=\" font-size:11pt; font-weight:500; color:" + color + ";\">" + name_.c_str() + "</span></p></body></html>");
+}
+
+QString Rune::getColoredEffect() const
+{
+    QString signe = (effet_.second > 0) ? "#4dc515;\">+ " : "- ";
+    //<html><head/><body><p align="center"><span style=" font-size:10pt; font-weight:600; color:#4dc515;">+ XX</span><span style=" font-size:10pt;"/><span style=" font-size:10pt; font-weight:600; font-style:italic;">YYY</span></p></body></html>
+    return QString("<html><head/><body><p><span style=\" font-size:10pt; font-weight:400; color:" + QString::number(effet_.second) + "</span><span style=\" font-size:10pt;\"/><span style=\" font-size:10pt; font-weight:600; font-style:italic;\">" + effet_.first.c_str() + "</span></p></body></html>");
+}
