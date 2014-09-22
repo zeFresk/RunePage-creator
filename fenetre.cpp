@@ -1,7 +1,7 @@
 #include "fenetre.h"
 #include "ui_fenetre.h"
 #include "fileManagement.h"
-//#include <QMessageBox>
+#include <QMessageBox>
 
 Fenetre::Fenetre(QWidget *parent) : QMainWindow(parent), ui(new Ui::Fenetre)
 {
@@ -49,13 +49,13 @@ Fenetre::Fenetre(QWidget *parent) : QMainWindow(parent), ui(new Ui::Fenetre)
         ui->DRunelist->setItemWidget(item,wi);
     }
 
-    connect(ui->DRunelist,SIGNAL(clicked(QModelIndex)),this,SLOT(ajouteBonneList(QModelIndex))); //on connecte pour que quand on clique on ajoute la rune.
+    connect(ui->DRunelist,SIGNAL(pressed(QModelIndex)),this,SLOT(ajouteBonneList(QModelIndex))); //on connecte pour que quand on clique on ajoute la rune.
 
     //on connecte pour qu'on pouisse supprimer les runes des petites listes
-    connect(ui->MarquesList,SIGNAL(clicked(QModelIndex)),this,SLOT(supprimerMarque(QModelIndex)));
-    connect(ui->SceauxList,SIGNAL(clicked(QModelIndex)),this,SLOT(supprimerSceau(QModelIndex)));
-    connect(ui->GlyphesList,SIGNAL(clicked(QModelIndex)),this,SLOT(supprimerGlyphe(QModelIndex)));
-    connect(ui->QuintList,SIGNAL(clicked(QModelIndex)),this,SLOT(supprimerQuint(QModelIndex)));
+    connect(ui->MarquesList,SIGNAL(pressed(QModelIndex)),this,SLOT(supprimerMarque(QModelIndex)));
+    connect(ui->SceauxList,SIGNAL(pressed(QModelIndex)),this,SLOT(supprimerSceau(QModelIndex)));
+    connect(ui->GlyphesList,SIGNAL(pressed(QModelIndex)),this,SLOT(supprimerGlyphe(QModelIndex)));
+    connect(ui->QuintList,SIGNAL(pressed(QModelIndex)),this,SLOT(supprimerQuint(QModelIndex)));
 }
 
 Fenetre::~Fenetre()
