@@ -20,6 +20,7 @@ public:
     QString getQPres() const;
     QString getColoredName(unsigned size = 9) const;
     QString getColoredEffect(unsigned size = 10) const;
+    std::string toString() const;
 private:
     std::string name_;
     Effet effet_;

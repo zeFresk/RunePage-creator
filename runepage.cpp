@@ -161,6 +161,32 @@ void RunePage::remove(RuneType const& type, int pos)
     }
 }
 
+std::vector<Rune> RunePage::getAllRune() const
+{
+    std::vector<Rune> ret;
+    for (auto &a : Marques_)
+    {
+        if (a != nullptr)
+            ret.push_back(*a);
+    }
+    for (auto &a : Sceaux_)
+    {
+        if (a != nullptr)
+            ret.push_back(*a);
+    }
+    for (auto &a : Glyphes_)
+    {
+        if (a != nullptr)
+            ret.push_back(*a);
+    }
+    for (auto &a : Quints_)
+    {
+        if (a != nullptr)
+            ret.push_back(*a);
+    }
+    return ret;
+}
+
 void addEffet(std::vector<Effet> &vect, Effet const& effet)
 {
     int pos = -1;

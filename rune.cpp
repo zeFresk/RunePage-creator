@@ -61,6 +61,20 @@ Rune::Rune(string str) //pour pouvoir load à partir d'une chaîne de type "NOM 
     }
 }
 
+std::string Rune::toString() const //FORMAT : NOM_LONG M/S/G/Q EFETNOM EFFETVALEUR
+{
+    string nameCopy = name_;
+    replace(nameCopy.begin(), nameCopy.end(), ' ', '_'); //on remplace ' ' par '_'
+    string ret = nameCopy;
+    if (type_ == RuneType::Marque) ret += " M";
+    if (type_ == RuneType::Sceau) ret += " S";
+    if (type_ == RuneType::Glyphe) ret += " G";
+    if (type_ == RuneType::Quint) ret += " Q";
+    ret += " " + effet_.first;
+    ret += " " + to_string(effet_.second);
+    return ret;
+}
+
 std::string Rune::getName() const
 {
     return name_;

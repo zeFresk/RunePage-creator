@@ -1,6 +1,7 @@
 #include "fenetre.h"
 #include "ui_fenetre.h"
 #include "fileManagement.h"
+#include <QFileDialog>
 #include <QMessageBox>
 
 template <typename T>
@@ -171,7 +172,16 @@ void Fenetre::ouvrirFichier()
 
 void Fenetre::sauvegarderFichier()
 {
-    //rien non plus
+    if (ui->MarquesList->count() == 0 && ui->SceauxList->count() == 0 && ui->GlyphesList->count() == 0 && ui->QuintList->count() == 0)
+    {
+        QMessageBox::warning(this,"Opération impossible","Vous ne pouvez pas enregistrer une page de rune vide !");
+    }
+    else
+    {
+        auto pathToSave = QFileDialog::getSaveFileName(this,"Enregister la page de rune",QString(),"Page de rune (*.runepage)"); //on récupère l'endroit choisi par l'user
+        QMessageBox::information(nullptr, "path", pathToSave);
+        saveRunePageToFile(page, pathToSave.toStdString());
+    }
 }
 
 void Fenetre::updateStats()
