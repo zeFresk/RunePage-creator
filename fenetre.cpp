@@ -3,6 +3,12 @@
 #include "fileManagement.h"
 #include <QMessageBox>
 
+template <typename T>
+T abs(T a)
+{
+    return (a >= 0) ? a : -1*a;
+}
+
 Fenetre::Fenetre(QWidget *parent) : QMainWindow(parent), ui(new Ui::Fenetre)
 {
     ui->setupUi(this);

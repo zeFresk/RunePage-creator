@@ -5,7 +5,7 @@
 #include <utility>
 #include <QString>
 
-typedef std::pair<std::string,int> Effet;
+typedef std::pair<std::string,double> Effet;
 
 enum class RuneType {Marque, Sceau, Glyphe, Quint};
 

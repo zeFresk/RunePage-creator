@@ -3,6 +3,12 @@
 #include <stdexcept>
 #include <algorithm>
 
+template <typename T>
+T abs(T a)
+{
+    return (a >= 0) ? a : -1*a;
+}
+
 using namespace std;
 
 Rune::Rune(string const& nom, Effet const& effet, RuneType const& type) : name_(nom), effet_(effet), type_(type)
@@ -47,7 +53,7 @@ Rune::Rune(string str) //pour pouvoir load à partir d'une chaîne de type "NOM 
         effet_.first = sub;
 
         iss >> sub; //valeur
-        effet_.second = stoi(sub); //on tente la conversion !
+        effet_.second = stod(sub); //on tente la conversion !
     }
     catch (...) //un problème est survenu...
     {
