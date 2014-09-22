@@ -97,7 +97,7 @@ QString Rune::getColoredName() const
 
 QString Rune::getColoredEffect() const
 {
-    QString signe = (effet_.second > 0) ? "#4dc515;\">+ " : "- ";
+    QString signe = (effet_.second > 0) ? "#4dc515;\">+ " : "#0267b5;\">- ";
     //<html><head/><body><p align="center"><span style=" font-size:10pt; font-weight:600; color:#4dc515;">+ XX</span><span style=" font-size:10pt;"/><span style=" font-size:10pt; font-weight:600; font-style:italic;">YYY</span></p></body></html>
-    return QString("<html><head/><body><p><span style=\" font-size:10pt; font-weight:400; color:" + QString::number(effet_.second) + "</span><span style=\" font-size:10pt;\"/><span style=\" font-size:10pt; font-weight:600; font-style:italic;\">" + effet_.first.c_str() + "</span></p></body></html>");
+    return QString("<html><head/><body><p><span style=\" font-size:10pt; font-weight:400; color:" + signe + QString::number(abs(effet_.second)) + "</span><span style=\" font-size:10pt;\"/><span style=\" font-size:10pt; font-weight:600; font-style:italic;\"> " + effet_.first.c_str() + "</span></p></body></html>");
 }
