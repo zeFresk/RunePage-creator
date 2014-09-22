@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QModelIndex>
 #include <QPixmap>
+#include <QListWidget>
 #include <vector>
 #include "rune.h"
 #include "runepage.h"
@@ -32,6 +33,7 @@ private:
     std::vector<QPixmap*> vectorPixRune;
 
     void updateStats();
+    void addToList(QListWidget* list, Rune const& rune);
 
     std::vector<Rune> index;
     RunePage page;

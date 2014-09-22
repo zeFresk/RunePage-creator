@@ -59,27 +59,54 @@ Fenetre::~Fenetre()
 
 void Fenetre::ajouteBonneList(QModelIndex ind)
 {
+    QMessageBox::information(nullptr,"1","On rentre dans ajoute bonne list");
     bool success = page.ajouterRune(index[ind.row()]); //On ajoute le bon index à la runepage. théoriquement c'est bon.
+    QMessageBox::information(nullptr,"success ?", QString::number(success));
     if (success) //on a jouté la rune
     {
         if (index[ind.row()].getType() == RuneType::Marque) //on a cliqué sur une marque
         {
-            ui->MarquesList->addItem(ui->DRunelist->currentItem()->clone()); //on ajoute l'item à la bonne liste
+            addToList(ui->MarquesList, index[ind.row()]); //on ajoute à la liste des marques
         }
         else if (index[ind.row()].getType() == RuneType::Sceau) //on a cliqué sur un sceau
         {
-            ui->SceauxList->addItem(ui->DRunelist->currentItem()->clone());
+            addToList(ui->SceauxList, index[ind.row()]); //on ajoute à la liste des sceaux
         }
         else if (index[ind.row()].getType() == RuneType::Glyphe) //on a cliqué sur un glyphe
         {
-            ui->GlyphesList->addItem(ui->DRunelist->currentItem()->clone());
+            addToList(ui->GlyphesList, index[ind.row()]); //on ajoute à la liste des glyphes
         }
         else if (index[ind.row()].getType() == RuneType::Quint) //on a cliqué sur une quintessence
         {
-            ui->QuintList->addItem(ui->DRunelist->currentItem()->clone());
+            addToList(ui->QuintList, index[ind.row()]); //on ajoute à la liste des quints
         }
     }
     updateStats();
+}
+
+void Fenetre::addToList(QListWidget* list, Rune const& rune)
+{
+    QMessageBox::information(nullptr, "2", "On rentre dans addToList");
+    QHBoxLayout* layout = new QHBoxLayout; //layout de l'élément
+
+    QLabel* nom = new QLabel(rune.getColoredName()); //on met le nom coloré de la rune
+    nom->setWordWrap(true);
+    nom->setMaximumWidth(150);
+
+    QLabel* intEffet = new QLabel(rune.getColoredEffect());
+
+    layout->addWidget(nom);
+    layout->addWidget(intEffet);
+
+    QListWidgetItem* item = new QListWidgetItem();
+
+    list->addItem(item); //temporaire
+
+    QWidget* wi = new QWidget;
+    wi->setLayout(layout);
+    item->setSizeHint(wi->sizeHint());
+
+    list->setItemWidget(item,wi);
 }
 
 void Fenetre::nouveauFichier()
