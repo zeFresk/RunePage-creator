@@ -1,7 +1,7 @@
 #include "fenetre.h"
 #include "ui_fenetre.h"
 #include "fileManagement.h"
-#include <QMessageBox>
+//#include <QMessageBox>
 
 Fenetre::Fenetre(QWidget *parent) : QMainWindow(parent), ui(new Ui::Fenetre)
 {
@@ -59,9 +59,7 @@ Fenetre::~Fenetre()
 
 void Fenetre::ajouteBonneList(QModelIndex ind)
 {
-    QMessageBox::information(nullptr,"1","On rentre dans ajoute bonne list");
     bool success = page.ajouterRune(index[ind.row()]); //On ajoute le bon index à la runepage. théoriquement c'est bon.
-    QMessageBox::information(nullptr,"success ?", QString::number(success));
     if (success) //on a jouté la rune
     {
         if (index[ind.row()].getType() == RuneType::Marque) //on a cliqué sur une marque
@@ -86,7 +84,6 @@ void Fenetre::ajouteBonneList(QModelIndex ind)
 
 void Fenetre::addToList(QListWidget* list, Rune const& rune)
 {
-    QMessageBox::information(nullptr, "2", "On rentre dans addToList");
     QHBoxLayout* layout = new QHBoxLayout; //layout de l'élément
 
     QLabel* nom = new QLabel(rune.getColoredName()); //on met le nom coloré de la rune
