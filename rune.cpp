@@ -1,6 +1,7 @@
 #include "rune.h"
 #include <sstream>
 #include <stdexcept>
+#include <algorithm>
 
 using namespace std;
 
@@ -17,6 +18,7 @@ Rune::Rune(string str) //pour pouvoir load à partir d'une chaîne de type "NOM 
         string sub{""};
 
         iss >> sub; //premier "mot"
+        replace(sub.begin(), sub.end(), '_', ' ');
         name_ = sub;
 
         iss >> sub; //deuxième
@@ -92,7 +94,7 @@ QString Rune::getColoredName() const
     {
         color = "#ffac05";
     }
-    return QString("<html><head/><body><p><span style=\" font-size:11pt; font-weight:500; color:" + color + ";\">" + name_.c_str() + "</span></p></body></html>");
+    return QString("<html><head/><body><p><span style=\" font-size:9pt; font-weight:500; color:" + color + ";\">" + name_.c_str() + "</span></p></body></html>");
 }
 
 QString Rune::getColoredEffect() const

@@ -29,18 +29,13 @@ Fenetre::Fenetre(QWidget *parent) : QMainWindow(parent), ui(new Ui::Fenetre)
         ico->setPixmap(vectorPixRune[static_cast<unsigned>(a.getType())]->scaledToHeight(50,Qt::SmoothTransformation)); //on resize
 
         QLabel* nom = new QLabel(a.getColoredName()); //on met le nom coloré de la rune
-
-        QFrame* frame = new QFrame; //frame du milieu
-        frame->setFrameShape(QFrame::VLine);
-        frame->setFrameShadow(QFrame::Plain);
-        frame->setLineWidth(1);
-        frame->setMidLineWidth(2);
+        nom->setWordWrap(true);
+        nom->setMaximumWidth(200);
 
         QLabel* intEffet = new QLabel(a.getColoredEffect());
 
         layout->addWidget(ico);
         layout->addWidget(nom);
-        layout->addWidget(frame);
         layout->addWidget(intEffet);
 
         QListWidgetItem* item = new QListWidgetItem();
