@@ -150,7 +150,7 @@ void RunePage::remove(RuneType const& type, int pos)
         Glyphes_[pos] = nullptr;
         ordonne(Glyphes_);
     }
-    else if (type == RuneType::Sceau && pos < 3)
+    else if (type == RuneType::Quint && pos < 3)
     {
         Quints_[pos] = nullptr;
         ordonne(Quints_);
