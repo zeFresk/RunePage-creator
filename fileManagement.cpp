@@ -35,8 +35,23 @@ void saveRunePageToFile(std::vector<Rune> const& index,RunePage const& page, QSt
 
     for (auto &a : vect) //on parcourt
     {
-        out << runeIndex(index, a) << '\n'; //on récupère le numéro d'index correspondant
+        out << runeIndex(index, a) << '\n'; //on récupère le numéro d'index correspondant en on l'enregistre
     }
+}
+
+vector<unsigned> getIndexListFromFile(QString const& path)
+{
+    QFile file(path);
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) throw runtime_error("Unable to load runepage.");
+    QTextStream in(&file);
+
+    vector<unsigned> ret;
+    while (!in.atEnd()) //tant qu'on est pas à la fin du fichier
+    {
+        QString line = in.readLine(); //on lit la ligne
+        ret.push_back(static_cast<unsigned>(stoi(line.toStdString()))); //on ajoute au vector de retour
+    }
+    return ret;
 }
 
 QString runeIndex(std::vector<Rune> const& ind, Rune const& r)

@@ -104,24 +104,29 @@ void Fenetre::supprimerQuint(QModelIndex ind)
 
 void Fenetre::ajouteBonneList(QModelIndex ind)
 {
-    bool success = page.ajouterRune(index[ind.row()]); //On ajoute le bon index à la runepage. théoriquement c'est bon.
+    ajouteBonneList(ind.row());
+}
+
+void Fenetre::ajouteBonneList(int ind)
+{
+    bool success = page.ajouterRune(index[ind]); //On ajoute le bon index à la runepage. théoriquement c'est bon.
     if (success) //on a jouté la rune
     {
-        if (index[ind.row()].getType() == RuneType::Marque) //on a cliqué sur une marque
+        if (index[ind].getType() == RuneType::Marque) //on a cliqué sur une marque
         {
-            addToList(ui->MarquesList, index[ind.row()]); //on ajoute à la liste des marques
+            addToList(ui->MarquesList, index[ind]); //on ajoute à la liste des marques
         }
-        else if (index[ind.row()].getType() == RuneType::Sceau) //on a cliqué sur un sceau
+        else if (index[ind].getType() == RuneType::Sceau) //on a cliqué sur un sceau
         {
-            addToList(ui->SceauxList, index[ind.row()]); //on ajoute à la liste des sceaux
+            addToList(ui->SceauxList, index[ind]); //on ajoute à la liste des sceaux
         }
-        else if (index[ind.row()].getType() == RuneType::Glyphe) //on a cliqué sur un glyphe
+        else if (index[ind].getType() == RuneType::Glyphe) //on a cliqué sur un glyphe
         {
-            addToList(ui->GlyphesList, index[ind.row()]); //on ajoute à la liste des glyphes
+            addToList(ui->GlyphesList, index[ind]); //on ajoute à la liste des glyphes
         }
-        else if (index[ind.row()].getType() == RuneType::Quint) //on a cliqué sur une quintessence
+        else if (index[ind].getType() == RuneType::Quint) //on a cliqué sur une quintessence
         {
-            addToList(ui->QuintList, index[ind.row()]); //on ajoute à la liste des quints
+            addToList(ui->QuintList, index[ind]); //on ajoute à la liste des quints
         }
     }
     updateStats();
@@ -167,7 +172,16 @@ void Fenetre::nouveauFichier()
 
 void Fenetre::ouvrirFichier()
 {
-    //rien pour le moment
+    nouveauFichier();
+    auto path = QFileDialog::getOpenFileName(this,"Charger une page de rune",QString(),"Page de rune (*.runepage)");
+    if (path != "")
+    {
+        std::vector<unsigned> indexList = getIndexListFromFile(path);
+        for (auto &a : indexList)
+        {
+            ajouteBonneList(a);
+        }
+    }
 }
 
 void Fenetre::sauvegarderFichier()
@@ -179,7 +193,7 @@ void Fenetre::sauvegarderFichier()
     else
     {
         auto pathToSave = QFileDialog::getSaveFileName(this,"Enregister la page de rune",QString(),"Page de rune (*.runepage)"); //on récupère l'endroit choisi par l'user
-        saveRunePageToFile(index, page, pathToSave);
+        if (pathToSave != "") saveRunePageToFile(index, page, pathToSave);
     }
 }
 

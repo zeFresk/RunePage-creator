@@ -8,5 +8,6 @@
 
 std::vector<Rune> loadIndexFromFile(std::string const& path);
 void saveRunePageToFile(const std::vector<Rune> &index, RunePage const& page, QString const& path);
+std::vector<unsigned> getIndexListFromFile(QString const& path);
 
 #endif // FILEMANAGEMENT_H

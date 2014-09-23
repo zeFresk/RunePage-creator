@@ -39,6 +39,7 @@ private:
 
     void updateStats();
     void addToList(QListWidget* list, Rune const& rune);
+    void ajouteBonneList(int ind);
 
     std::vector<Rune> index;
     RunePage page;
