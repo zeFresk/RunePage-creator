@@ -9,6 +9,8 @@
 
 using namespace std;
 
+QString runeIndex(const std::vector<Rune> &ind, const Rune &r);
+
 vector<Rune> loadIndexFromFile(string const& path)
 {
     ifstream file{path}; //on charge le fichier
@@ -24,15 +26,24 @@ vector<Rune> loadIndexFromFile(string const& path)
     return ret; //on retourne notre vector
 }
 
-void saveRunePageToFile(RunePage const& page, std::string path)
+void saveRunePageToFile(std::vector<Rune> const& index,RunePage const& page, QString const& path)
 {
     auto vect = page.getAllRune(); //on récupère toutes les runes
-    QFile file(path.c_str()); //caractères spéciaux non gérés par ofstream T.T
+    QFile file(path); //caractères spéciaux non gérés par ofstream T.T
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) throw runtime_error("Unable to save runepage.");
     QTextStream out(&file); //pour écrire !
 
     for (auto &a : vect) //on parcourt
     {
-        out << a.toString().c_str() << '\n'; //on save la rune
+        out << runeIndex(index, a) << '\n'; //on récupère le numéro d'index correspondant
     }
+}
+
+QString runeIndex(std::vector<Rune> const& ind, Rune const& r)
+{
+    for (unsigned i{0};i<ind.size();i++)
+    {
+        if (ind[i] == r) return QString::number(i);
+    }
+    throw runtime_error("Rune isn't in index file !");
 }

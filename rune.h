@@ -21,6 +21,7 @@ public:
     QString getColoredName(unsigned size = 9) const;
     QString getColoredEffect(unsigned size = 10) const;
     std::string toString() const;
+    friend bool operator==(Rune const& r, Rune const& rd);
 private:
     std::string name_;
     Effet effet_;

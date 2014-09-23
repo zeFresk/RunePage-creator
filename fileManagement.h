@@ -7,6 +7,6 @@
 #include <vector>
 
 std::vector<Rune> loadIndexFromFile(std::string const& path);
-void saveRunePageToFile(RunePage const& page, std::string path);
+void saveRunePageToFile(const std::vector<Rune> &index, RunePage const& page, QString const& path);
 
 #endif // FILEMANAGEMENT_H

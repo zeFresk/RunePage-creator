@@ -179,8 +179,7 @@ void Fenetre::sauvegarderFichier()
     else
     {
         auto pathToSave = QFileDialog::getSaveFileName(this,"Enregister la page de rune",QString(),"Page de rune (*.runepage)"); //on récupère l'endroit choisi par l'user
-        QMessageBox::information(nullptr, "path", pathToSave);
-        saveRunePageToFile(page, pathToSave.toStdString());
+        saveRunePageToFile(index, page, pathToSave);
     }
 }
 
