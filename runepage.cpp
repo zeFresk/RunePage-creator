@@ -36,7 +36,7 @@ void ordonne(std::array<Rune*,a> & arr)
 
 RunePage::RunePage()
 {
-    clear();
+    clear(); //on met tous les pointeurs à nullptr (on saît jamais ^^)
 }
 
 bool RunePage::ajouterRune(Rune & rune)
@@ -103,7 +103,7 @@ void RunePage::clear() //RAZ des pointeurs
     for (auto& a: Quints_) {a = nullptr;}
 }
 
-std::vector<Effet> RunePage::getAllEffect() const
+std::vector<Effet> RunePage::getAllEffect() const // on retourne tous les effets cumulés dans un vector
 {
     std::vector<Effet> ret;
 
@@ -132,7 +132,7 @@ std::vector<Effet> RunePage::getAllEffect() const
     return ret;
 }
 
-void RunePage::remove(RuneType const& type, int pos)
+void RunePage::remove(RuneType const& type, int pos) //on enlève une rune en fonction de son type et de son numéro dans la page
 {
     if (pos < 0) throw std::runtime_error("Unable to remove the rune ! (pos < 0)"); //Qt qui peut renvoyer un index négatif...
     if (type == RuneType::Marque && pos < 9)
@@ -161,7 +161,7 @@ void RunePage::remove(RuneType const& type, int pos)
     }
 }
 
-std::vector<Rune> RunePage::getAllRune() const
+std::vector<Rune> RunePage::getAllRune() const // on retourne toutes les runes dans un vector
 {
     std::vector<Rune> ret;
     for (auto &a : Marques_)
@@ -187,7 +187,7 @@ std::vector<Rune> RunePage::getAllRune() const
     return ret;
 }
 
-void addEffet(std::vector<Effet> &vect, Effet const& effet)
+void addEffet(std::vector<Effet> &vect, Effet const& effet) //on ajoute l'effet à un vector d'effet si il n'est pas déjà présent, on cumule avec le même effet s'il est déjà présent
 {
     int pos = -1;
     for (unsigned i{0}; i < vect.size(); i++) //on cherche si l'effet est déjà présent dans le vector

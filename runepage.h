@@ -11,8 +11,8 @@ class RunePage
 {
 public:
     RunePage();
-    RunePage& operator=(RunePage const& r)=delete;
-    RunePage(RunePage& r)=delete;
+    RunePage& operator=(RunePage const& r)=delete; //d'où tu crois qu'une page ça se copie alors qu'on manipule des pointeurs ?!
+    RunePage(RunePage& r)=delete; //Tu me cherches ???!!!
     bool ajouterRune(Rune &rune);
     void clear();
     std::vector<Effet> getAllEffect() const;

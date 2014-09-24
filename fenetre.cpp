@@ -13,6 +13,8 @@ T abs(T a)
 Fenetre::Fenetre(QWidget *parent) : QMainWindow(parent), ui(new Ui::Fenetre)
 {
     ui->setupUi(this);
+    QLabel* hidden = new QLabel("<html><head/><body><p><span style=\" font-size:12pt; font-style:italic;\">Ta gueule </span><span style=\" font-size:12pt;\">, Canis</span></p></body></html>");
+    hidden->setVisible(false); //cache toi ! :D
 
     //on connecte les Qapplication
     connect(ui->actionNouveau,SIGNAL(triggered()),this,SLOT(nouveauFichier()));
@@ -20,13 +22,13 @@ Fenetre::Fenetre(QWidget *parent) : QMainWindow(parent), ui(new Ui::Fenetre)
     connect(ui->actionSauvegarder,SIGNAL(triggered()),this,SLOT(sauvegarderFichier()));
     connect(ui->actionQuitter,SIGNAL(triggered()),qApp,SLOT(quit()));
 
-    index = loadIndexFromFile("runes.index"); //on charge les runes
+    index = loadIndexFromFile("res/runes.index"); //on charge les runes
 
     //on charge les icones des runes;
-    vectorPixRune.push_back(new QPixmap("marque_ico.png"));
-    vectorPixRune.push_back(new QPixmap("sceau_ico.png"));
-    vectorPixRune.push_back(new QPixmap("glyphe_ico.png"));
-    vectorPixRune.push_back(new QPixmap("quint_ico.png"));
+    vectorPixRune.push_back(new QPixmap("res/marque_ico.png"));
+    vectorPixRune.push_back(new QPixmap("res/sceau_ico.png"));
+    vectorPixRune.push_back(new QPixmap("res/glyphe_ico.png"));
+    vectorPixRune.push_back(new QPixmap("res/quint_ico.png"));
 
     for (auto &a : index)
     {
@@ -39,8 +41,9 @@ Fenetre::Fenetre(QWidget *parent) : QMainWindow(parent), ui(new Ui::Fenetre)
         nom->setWordWrap(true);
         nom->setMaximumWidth(200);
 
-        QLabel* intEffet = new QLabel(a.getColoredEffect());
+        QLabel* intEffet = new QLabel(a.getColoredEffect()); //on récupère l'effet déjà mis en forme
 
+        //on ajoute au layout principal
         layout->addWidget(ico);
         layout->addWidget(nom);
         layout->addWidget(intEffet);
@@ -53,7 +56,7 @@ Fenetre::Fenetre(QWidget *parent) : QMainWindow(parent), ui(new Ui::Fenetre)
         wi->setLayout(layout);
         item->setSizeHint(wi->sizeHint());
 
-        ui->DRunelist->setItemWidget(item,wi);
+        ui->DRunelist->setItemWidget(item,wi); //on fait en sorte que ce soit le layout qui soit présent dans la liste
     }
 
     connect(ui->DRunelist,SIGNAL(pressed(QModelIndex)),this,SLOT(ajouteBonneList(QModelIndex))); //on connecte pour que quand on clique on ajoute la rune.
@@ -65,7 +68,7 @@ Fenetre::Fenetre(QWidget *parent) : QMainWindow(parent), ui(new Ui::Fenetre)
     connect(ui->QuintList,SIGNAL(pressed(QModelIndex)),this,SLOT(supprimerQuint(QModelIndex)));
 }
 
-Fenetre::~Fenetre()
+Fenetre::~Fenetre() //useless ? Je ne crois pas !
 {
     delete ui;
 }
@@ -104,7 +107,7 @@ void Fenetre::supprimerQuint(QModelIndex ind)
 
 void Fenetre::ajouteBonneList(QModelIndex ind)
 {
-    ajouteBonneList(ind.row());
+    ajouteBonneList(ind.row()); //Parce qu'il est impossible de créer un QModelIndex manuellement et que j'avais besoin que la fonction demande un int pour quand on ouvre un .runepage
 }
 
 void Fenetre::ajouteBonneList(int ind)
@@ -132,7 +135,7 @@ void Fenetre::ajouteBonneList(int ind)
     updateStats();
 }
 
-void Fenetre::addToList(QListWidget* list, Rune const& rune)
+void Fenetre::addToList(QListWidget* list, Rune const& rune) //ça ressemble à la première liste mais on ne peut pas copier car les tailles sont différentes
 {
     QHBoxLayout* layout = new QHBoxLayout; //layout de l'élément
 
@@ -140,7 +143,7 @@ void Fenetre::addToList(QListWidget* list, Rune const& rune)
     nom->setWordWrap(true);
     nom->setMaximumWidth(125);
 
-    QLabel* intEffet = new QLabel(rune.getColoredEffect(8));
+    QLabel* intEffet = new QLabel(rune.getColoredEffect(8)); //on met l'effet coloré de la rune
 
     layout->addWidget(nom);
     layout->addWidget(intEffet);
@@ -173,27 +176,27 @@ void Fenetre::nouveauFichier()
 void Fenetre::ouvrirFichier()
 {
     nouveauFichier();
-    auto path = QFileDialog::getOpenFileName(this,"Charger une page de rune",QString(),"Page de rune (*.runepage)");
-    if (path != "")
+    auto path = QFileDialog::getOpenFileName(this,"Charger une page de rune",QString(),"Page de rune (*.runepage)"); //on demande où ouvrir à l'user
+    if (path != "") //si il n'a pas cliqué sur cancel
     {
-        std::vector<unsigned> indexList = getIndexListFromFile(path);
+        std::vector<unsigned> indexList = getIndexListFromFile(path); //on récupère les numéro dans l'index des runes stockées dans le fichier
         for (auto &a : indexList)
         {
-            ajouteBonneList(a);
+            ajouteBonneList(a); // on les ajoute une par une
         }
     }
 }
 
 void Fenetre::sauvegarderFichier()
 {
-    if (ui->MarquesList->count() == 0 && ui->SceauxList->count() == 0 && ui->GlyphesList->count() == 0 && ui->QuintList->count() == 0)
+    if (ui->MarquesList->count() == 0 && ui->SceauxList->count() == 0 && ui->GlyphesList->count() == 0 && ui->QuintList->count() == 0) //si la page est vide les listes ne sont pas remplies, un RunePage::isEmpty() aurait été pas mal aussi mais bon
     {
         QMessageBox::warning(this,"Opération impossible","Vous ne pouvez pas enregistrer une page de rune vide !");
     }
-    else
+    else //la page contient au moins une rune
     {
         auto pathToSave = QFileDialog::getSaveFileName(this,"Enregister la page de rune",QString(),"Page de rune (*.runepage)"); //on récupère l'endroit choisi par l'user
-        if (pathToSave != "") saveRunePageToFile(index, page, pathToSave);
+        if (pathToSave != "") saveRunePageToFile(index, page, pathToSave); // s'il n'a pas cliqué sur "cancel" on sauvegarde la page à l'endroit indiqué
     }
 }
 

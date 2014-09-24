@@ -4,7 +4,7 @@
 #include <algorithm>
 
 template <typename T>
-T abs(T a)
+T abs(T a) //explicite non ?
 {
     return (a >= 0) ? a : -1*a;
 }
@@ -65,13 +65,13 @@ std::string Rune::toString() const //FORMAT : NOM_LONG M/S/G/Q EFETNOM EFFETVALE
 {
     string nameCopy = name_;
     replace(nameCopy.begin(), nameCopy.end(), ' ', '_'); //on remplace ' ' par '_'
-    string ret = nameCopy;
-    if (type_ == RuneType::Marque) ret += " M";
-    if (type_ == RuneType::Sceau) ret += " S";
-    if (type_ == RuneType::Glyphe) ret += " G";
-    if (type_ == RuneType::Quint) ret += " Q";
-    ret += " " + effet_.first;
-    ret += " " + to_string(effet_.second);
+    string ret = nameCopy; //on ajoute le nom modifié
+    if (type_ == RuneType::Marque) ret += " M"; // On...
+    if (type_ == RuneType::Sceau) ret += " S"; // Ajoute...
+    if (type_ == RuneType::Glyphe) ret += " G"; // Le...
+    if (type_ == RuneType::Quint) ret += " Q"; // Type...
+    ret += " " + effet_.first; // le nom de l'effet
+    ret += " " + to_string(effet_.second); // le valeur de l'effet
     return ret;
 }
 
@@ -90,15 +90,10 @@ Effet Rune::getEffet() const
     return effet_;
 }
 
-QString Rune::getQPres() const
-{
-    return QString(QString::number(static_cast<int>(type_)) + " " + name_.c_str() + " " + effet_.first.c_str() + " " + QString::number(effet_.second));
-}
-
-QString Rune::getColoredName(unsigned size) const
+QString Rune::getColoredName(unsigned size) const //on retourne le nom de la rune mis en page pour les QLabel
 {
     QString color;
-    if (type_ == RuneType::Marque)
+    if (type_ == RuneType::Marque) //déduction de la couleur
     {
         color = "#c24000";
     }
@@ -117,14 +112,14 @@ QString Rune::getColoredName(unsigned size) const
     return QString("<html><head/><body><p><span style=\" font-size:" + QString::number(size) + "pt; font-weight:500; color:" + color + ";\">" + name_.c_str() + "</span></p></body></html>");
 }
 
-QString Rune::getColoredEffect(unsigned size) const
+QString Rune::getColoredEffect(unsigned size) const //on récupère l'effet de la rune mis en page pour que ça soit un minimum jouuuuuuuli
 {
     QString signe = (effet_.second > 0) ? "#4dc515;\">+ " : "#0267b5;\">- ";
     //<html><head/><body><p align="center"><span style=" font-size:10pt; font-weight:600; color:#4dc515;">+ XX</span><span style=" font-size:10pt;"/><span style=" font-size:10pt; font-weight:600; font-style:italic;">YYY</span></p></body></html>
     return QString("<html><head/><body><p><span style=\" font-size:" + QString::number(size) +"pt; font-weight:400; color:" + signe + QString::number(abs(effet_.second)) + "</span><span style=\" font-size:" + QString::number(size) + "pt;\"/><span style=\" font-size:" + QString::number(size) + "pt; font-weight:600; font-style:italic;\"> " + effet_.first.c_str() + "</span></p></body></html>");
 }
 
-bool operator==(Rune const& r, Rune const& rd)
+bool operator==(Rune const& r, Rune const& rd) // What else ?
 {
     return (rd.name_ == r.name_ && rd.type_ == r.type_ && rd.effet_ == r.effet_) ? true : false;
 }

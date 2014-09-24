@@ -17,7 +17,6 @@ public:
     std::string getName() const;
     RuneType getType() const;
     Effet getEffet() const;
-    QString getQPres() const;
     QString getColoredName(unsigned size = 9) const;
     QString getColoredEffect(unsigned size = 10) const;
     std::string toString() const;

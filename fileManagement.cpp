@@ -3,9 +3,7 @@
 #include <fstream>
 #include <QFile>
 #include <QTextStream>
-//#include <algorithm>
 #include <stdexcept>
-#include <QMessageBox>
 
 using namespace std;
 
@@ -42,7 +40,7 @@ void saveRunePageToFile(std::vector<Rune> const& index,RunePage const& page, QSt
 vector<unsigned> getIndexListFromFile(QString const& path)
 {
     QFile file(path);
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) throw runtime_error("Unable to load runepage.");
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) throw runtime_error("Unable to load runepage."); //on ouvre le fichier en lecture
     QTextStream in(&file);
 
     vector<unsigned> ret;
@@ -54,11 +52,11 @@ vector<unsigned> getIndexListFromFile(QString const& path)
     return ret;
 }
 
-QString runeIndex(std::vector<Rune> const& ind, Rune const& r)
+QString runeIndex(std::vector<Rune> const& ind, Rune const& r) //retourne l'index de la rune dans le vector (ind[i] == r)
 {
     for (unsigned i{0};i<ind.size();i++)
     {
-        if (ind[i] == r) return QString::number(i);
+        if (ind[i] == r) return QString::number(i); //si c'est égal on retourne l'index
     }
     throw runtime_error("Rune isn't in index file !");
 }

@@ -15,7 +15,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>icone.gif</normaloff>icone.gif</iconset>
+    <normaloff>res/icone.gif</normaloff>res/icone.gif</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QWidget" name="gridLayoutWidget">
@@ -337,8 +337,6 @@
      </item>
     </layout>
    </widget>
-   <zorder>gridLayoutWidget</zorder>
-   <zorder>label_2</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

@@ -1,7 +1,7 @@
 #include "fenetre.h"
 #include <QApplication>
 
-int main(int argc, char *argv[])
+int main(int argc, char *argv[]) // so much code here !
 {
     QApplication a(argc, argv);
 

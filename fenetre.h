@@ -2,7 +2,6 @@
 #define FENETRE_H
 
 #include <QMainWindow>
-#include <QModelIndex>
 #include <QPixmap>
 #include <QListWidget>
 #include <vector>
