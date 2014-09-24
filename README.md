@@ -9,6 +9,10 @@ Il vous permettra de sauvegarder et de charger des pages de runes déjà créée
 L'éditeur est très simple, un clic sur l'index des runes l'ajoutera à votre page actuelle et un clic sur une rune déjà placée sur votre page la supprimera.  
 *Actuellement ce programme n'est pas très utile mais il a été créé dans le but d'être intégré à une suite plus conséquenté qui lui permettra de trouver son utilité*  
 
+Où télécharger ?
+----
+Pour télécharger directement le programme compilé rendez-vous dans la section Binaries :D
+
 Bla bla compliqué
 ----
 Le programme est actuellement sous license APACHE v2 et vous êtes donc libre de :
