@@ -13,6 +13,8 @@ T abs(T a)
 Fenetre::Fenetre(QWidget *parent) : QMainWindow(parent), ui(new Ui::Fenetre)
 {
     ui->setupUi(this);
+    setWindowFlags(Qt::Window | Qt::CustomizeWindowHint | Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint);
+
     QLabel* hidden = new QLabel("<html><head/><body><p><span style=\" font-size:12pt; font-style:italic;\">Ta gueule </span><span style=\" font-size:12pt;\">, Canis</span></p></body></html>");
     hidden->setVisible(false); //cache toi ! :D
 
